@@ -1,0 +1,46 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+
+	"injectionSelector": "L:comment.block.documentation.phpdoc.php",
+	"scopeName": "text.phpdoc",
+	"name": "PHP",
+
+	"patterns": [
+		{
+			"include": "#builtin_types"
+		},
+		{
+			"include": "#class_types"
+		}
+	],
+	"repository": {
+		"builtin_types": {
+			"patterns": [
+				{
+					"name": "keyword.other.type.php",
+					"match": "(iterable|callable|array|object|bool|int|float|string|resource|null|class-string|static|self|mixed|void|noreturn|true|false)"
+				}
+			]
+		},
+
+		"class_types": {
+			"patterns": [
+				{
+					"match": "(?i)(\\\\)?(([a-z]+\\\\)*)([a-z]+)",
+					"captures": {
+						"1": {
+							"name": "source.php"
+						},
+						"2": {
+							"name": "source.php"
+						},
+						"4": {
+							"name": "support.class.php"
+						}
+					}
+				}
+			]
+		}
+
+	}
+}

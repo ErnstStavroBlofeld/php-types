@@ -1,0 +1,25 @@
+{
+  "name": "php-types",
+  "displayName": "php-types",
+  "description": "PHP Types Extended",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.72.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "phpdoc"
+    }],
+    "grammars": [{
+      "language": "phpdoc",
+      "scopeName": "text.phpdoc",
+      "injectTo": [
+        "text.html.php"
+      ],
+      "path": "./syntaxes/php.tmLanguage.json"
+    }]
+  }
+}
