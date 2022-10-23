@@ -3,6 +3,7 @@
   "displayName": "php-types",
   "description": "PHP Types Extended",
   "version": "0.0.1",
+  "publisher": "ErnstStavroBlofeld",
   "repository": {
     "url": "https://github.com/ErnstStavroBlofeld/php-types"
   },
