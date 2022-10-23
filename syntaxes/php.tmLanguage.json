@@ -3,43 +3,38 @@
 
 	"injectionSelector": "L:comment.block.documentation.phpdoc.php",
 	"scopeName": "text.phpdoc",
-	"name": "PHP",
+	"name": "phpdoc",
 
 	"patterns": [
 		{
-			"include": "#builtin_types"
-		},
-		{
-			"include": "#class_types"
+			"include": "#phpdoc-variables"
 		}
 	],
+
 	"repository": {
-		"builtin_types": {
-			"patterns": [
-				{
-					"name": "keyword.other.type.php",
-					"match": "(iterable|callable|array|object|bool|int|float|string|resource|null|class-string|static|self|mixed|void|noreturn|true|false)"
-				}
-			]
+		
+		"types": {
+			"match": "(kox)",
+			"name": "keyword.control.other"
 		},
 
-		"class_types": {
-			"patterns": [
-				{
-					"match": "(?i)(\\\\)?(([a-z]+\\\\)*)([a-z]+)",
-					"captures": {
-						"1": {
-							"name": "source.php"
-						},
-						"2": {
-							"name": "source.php"
-						},
-						"4": {
-							"name": "support.class.php"
+		"phpdoc-variables": {
+			"match": "(@(param|property-(read|write)))\\s+([^$]+)\\s+(\\$\\w+)\\s*$",
+			"captures": {
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				},
+				"4": {
+					"patterns": [
+						{
+							"include": "#types"
 						}
-					}
+					]
+				},
+				"5": {
+					"name": "variable.other.php"
 				}
-			]
+			}
 		}
 
 	}
