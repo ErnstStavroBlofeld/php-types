@@ -3,7 +3,7 @@
   "displayName": "PHP Doc Types",
   "description": "PHP Doc Types Extended with generics, templates, inheritance and more",
   "icon": "res/icon.png",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "ErnstStavroBlofeld",
   "repository": {
     "url": "https://github.com/ErnstStavroBlofeld/php-types"
@@ -15,16 +15,20 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "phpdoc"
-    }],
-    "grammars": [{
-      "language": "phpdoc",
-      "scopeName": "text.phpdoc",
-      "injectTo": [
-        "text.html.php"
-      ],
-      "path": "./syntaxes/php.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "phpdoc"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "phpdoc",
+        "scopeName": "text.phpdoc",
+        "injectTo": [
+          "text.html.php"
+        ],
+        "path": "./syntaxes/php.tmLanguage.json"
+      }
+    ]
   }
 }
