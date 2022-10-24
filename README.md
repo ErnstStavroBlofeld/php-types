@@ -1,4 +1,4 @@
-# PHP Extended Types
+# PHP Doc Extended
 
 This extensions supplies additional syntax highlighting for php-doc types.
 
