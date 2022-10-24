@@ -6,221 +6,148 @@
 	"name": "phpdoc",
 
 	"patterns": [
-		{
-			"include": "#phpdoc-variables"
-		},
-		{
-			"include": "#php-doc-variable-types"
-		},
-		{
-			"include": "#php-doc-templates"
-		},
-		{
-			"include": "#php-doc-inheritance"
-		}
+		{"include": "#phpdoc"}
 	],
 
 	"repository": {
-
-		"primitive_types": {
-			"match": "(callable-string|numeric-string|non-empty-string|mixed|non-falsy-string|literal-string|int-mask-of|int-mask|positive-int|negative-int|self|int|integer|string|array-key|class-string|bool|boolean|true|false|null|float|double|scalar|array|non-empty-array|list|non-empty-list|key-of|value-of|iterable|callable|resource|void|object|never|never-return|never-returns|no-return)(\\[\\])?",
+		"phpstan-types": {
+			"match": "(?i)\\b(non-empty-string|non-falsy-string|callable-string|numeric-string|literal-string|class-string|int-mask-of|int-mask|positive-int|negative-int|array-key|key-of|value-of|non-empty-array|non-empty-list|never-return|never-returns|no-return|scalar|list)\\b",
 			"name": "keyword.other.type.php"
 		},
 
-		"class_types": {
-			"match": "((\\\\?([A-Za-z_]\\w*\\\\))*)([A-Za-z_]\\w*)",
+		"phpstan-arrays": {
+			"match": "(?i)\\b(array)\\b{(.+)}",
 			"captures": {
-				"1": {
-					"name": "support.other.namespace.php"
-				},
-				"4": {
-					"name": "support.class.php"
-				}
-			}
-		},
-
-		"shaped_array_types": {
-			"match": "(array){(.+)}",
-			"captures": {
-				"1": {
-					"name": "keyword.other.type.php"
-				},
+				"1": {"name": "keyword.other.type.php"},
 				"2": {
 					"patterns": [
 						{
-							"match": "(\\w+\\??)\\s*:",
+							"match": "(?i)(?>([a-z_]\\w*)\\??)\\s*:",
 							"captures": {
-								"1": {
-									"name": "source.php"
-								}
+								"1": {"name": "meta.other.php.array.key"}
 							}
 						},
-						{
-							"include": "#types"
-						}
+						{"include": "#phpdoc-types"}
 					]
 				}
 			}
 		},
 
-		"variable_names": {
-			"match": "(\\$[A-Za-z]\\w*)\\b",
-			"name": "variable.other.php"
+		"php-primitive-types": {
+			"match": "(?i)\\b(self|int|string|bool|float|double|array|iterable|callable|resource|void|object|never)\\b",
+			"name": "keyword.other.type.php"
 		},
 
-		"numbers": {
-			"match": "((0(x|o|b))?[\\d_]+(\\.[\\d+_])?)",
-			"name": "constant.numeric.php"
-		},
-
-		"strings": {
+		"php-class-types": {
 			"patterns": [
-				{
-					"match": "'(?:[^'\\\\]|\\\\.)*'",
-					"name": "string.quoted.single"
-				},
-				{
-					"match": "\"(?:[^\"\\\\]|\\\\.)*\"",
-					"name": "string.quoted.double"
-				}
+				{"include": "source.php#namespace"},
+				{"include": "source.php#class-builtin"},
+				{"include": "source.php#class-name"}
 			]
 		},
 
-		"constant_enumerations": {
-			"match": "([A-Za-z_]\\w*)::(\\w+)",
+		"php-types-aliases": {
+			"match": "(?i)\\b(boolean|integer|mixed)\\b",
+			"name": "keyword.other.type.php"
+		},
+
+		"php-constants-language": {
+			"match": "(?i)\\b(true|false|null)\\b",
+			"name": "constant.language.php"
+		},
+
+		"php-constants": {
+			"patterns": [
+				{"include": "source.php#numbers"},
+				{"include": "source.php#strings"}
+			]
+		},
+
+		"php-variables": {
+			"patterns": [
+				{"include": "source.php#variables"}
+			]
+		},
+
+		"php-class-constants": {
+			"match": "(?i)\\b(::)\\b([a-z_]\\w*)",
 			"captures": {
-				"1": {
-					"patterns": [
-						{
-							"include": "#primitive_types"
-						},
-						{
-							"include": "class_types"
-						}
-					]
-				},
+				"1": {"name": "keyword.operator.class.php"},
+				"2": {"name": "constant.other.class.php"}
+			}
+		},
+
+		"phpdoc-types": {
+			"patterns": [
+				{"include": "#phpstan-types"},
+				{"include": "#phpstan-arrays"},
+				{"include": "#php-constants-language"},
+				{"include": "#php-constants"},
+				{"include": "#php-primitive-types"},
+				{"include": "#php-types-aliases"},
+				{"include": "#php-class-types"},
+				{"include": "#php-variables"},
+				{"include": "#php-class-constants"}
+			]
+		},
+		
+		"phpdoc-templates": {
+			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?template)\\s+([^\\s*]+)(?>\\s+(of)\\s+((?><[^>]+>|\\([^)]+\\)(:\\s+)?|[^\\s*])+))?",
+			"captures": {
+				"1": {"name": "keyword.other.phpdoc.php"},
+				"3": {"name": "keyword.other.phpdoc.php"},
 				"2": {
-					"name": "constant.other.class.php"
-				}
-			}
-		},
-
-		"literals_and_constants": {
-			"patterns": [
-				{
-					"include": "#numbers"
-				},
-				{
-					"include": "#strings"
-				}
-			]
-		},
-
-		"types": {
-			"patterns": [
-				{
-					"include": "#constant_enumerations"
-				},
-				{
-					"include": "#variable_names"
-				},
-				{
-					"include": "#shaped_array_types"
-				},
-				{
-					"include": "#primitive_types"
-				},
-				{
-					"include": "#class_types"
-				},
-				{
-					"include": "#literals_and_constants"
-				}
-			]
-		},
-
-		"phpdoc-variables": {
-			"match": "(@(param|global|property(-read|-write)?))\\s+(.+)\\s+(\\.\\.\\.)?(\\$[A-Za-z_]\\w*)\\s*$",
-			"captures": {
-				"1": {
-					"name": "keyword.other.phpdoc.php"
+					"name": "source.php",
+					"patterns": [
+						{"include": "#phpdoc-types"}
+					]
 				},
 				"4": {
 					"name": "source.php",
 					"patterns": [
-						{
-							"include": "#types"
-						}
-					]
-				},
-				"5": {
-					"name": "source.php"
-				},
-				"6": {
-					"name": "variable.other.php"
-				}
-			}
-		},
-
-		"php-doc-variable-types": {
-			"match": "(@(var|return))\\s+(.+)$",
-			"captures": {
-				"1": {
-					"name": "keyword.other.phpdoc.php"
-				},
-				"3": {
-					"name": "source.php",
-					"patterns": [
-						{
-							"include": "#types"
-						}
+						{"include": "#phpdoc-types"}
 					]
 				}
 			}
 		},
 
-		"php-doc-templates": {
-			"match": "(?i)(@template)\\s+([a-z_]\\w*)(\\s+(of)\\s+(.+))?",
+		"phpdoc-singular": {
+			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>implements|extends|throws|return))\\s+((?><[^>]+>|\\([^)]+\\)(:\\s+)?|[^\\s*])+)",
 			"captures": {
-				"1": {
-					"name": "keyword.other.phpdoc.php"
-				},
+				"1": {"name": "keyword.other.phpdoc.php"},
 				"2": {
-					"patterns": [
-						{
-							"include": "#class_types"
-						}
-					]
-				},
-				"4": {
-					"name": "keyword.other.phpdoc.php"
-				},
-				"5": {
 					"name": "source.php",
 					"patterns": [
-						{
-							"include": "#types"
-						}
+						{"include": "#phpdoc-types"}
 					]
 				}
 			}
 		},
 
-		"php-doc-inheritance": {
-			"match": "(@(extends|implements))\\s+(.+)",
-			"captures": {
-				"1": {
-					"name": "keyword.other.phpdoc.php"
-				},
-				"3": {
-					"name": "source.php",
-					"patterns": [
-						{
-							"include": "#types"
-						}
-					]	
-				}
-			}
+		"phpdoc-properties": {
+			"begin": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>var|param|property(?>-read|-write)?))\\s+",
+			"beginCaptures": {
+				"1": {"name": "keyword.other.phpdoc.php"}
+			},
+
+			"end": "(?i)(?>\\s(\\.{3})?(\\$[a-z_]\\w*)\\s)|(?>\\s(?=\\*\\/))",
+			"endCaptures": {
+				"1": {"name": "keyword.operator.variadic.php"},
+				"2": {"name": "variable.other.php"}
+			},
+
+			"name": "source.php",
+			"patterns": [
+				{"include": "#phpdoc-types"}
+			]
+		},
+
+		"phpdoc": {
+			"patterns": [
+				{"include": "#phpdoc-templates"},
+				{"include": "#phpdoc-singular"},
+				{"include": "#phpdoc-properties"}
+			]
 		}
 	}
 }
