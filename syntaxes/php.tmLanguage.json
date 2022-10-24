@@ -140,7 +140,7 @@
 		},
 
 		"phpdoc-variables": {
-			"match": "(@(param|global|property-(read|write)))\\s+(.+)\\s+(\\$[A-Za-z_]\\w*)\\s*$",
+			"match": "(@(param|global|property(-read|-write)?))\\s+(.+)\\s+(\\.\\.\\.)?(\\$[A-Za-z_]\\w*)\\s*$",
 			"captures": {
 				"1": {
 					"name": "keyword.other.phpdoc.php"
@@ -154,6 +154,9 @@
 					]
 				},
 				"5": {
+					"name": "source.php"
+				},
+				"6": {
 					"name": "variable.other.php"
 				}
 			}
