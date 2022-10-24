@@ -1,7 +1,7 @@
 {
   "name": "php-types",
-  "displayName": "PHP Doc Types",
-  "description": "PHP Doc Types Extended with generics, templates, inheritance and more",
+  "displayName": "PHP Doc Extended",
+  "description": "PHP Doc Extended with generics, templates, inheritance and more.",
   "icon": "res/icon.png",
   "version": "0.2.0",
   "publisher": "ErnstStavroBlofeld",
