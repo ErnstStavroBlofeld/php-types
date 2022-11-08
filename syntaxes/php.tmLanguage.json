@@ -99,13 +99,15 @@
 				"2": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#phpdoc-types"}
+						{"include": "#phpdoc-types"},
+						{"include": "#phpdoc-comment"}
 					]
 				},
 				"4": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#phpdoc-types"}
+						{"include": "#phpdoc-types"},
+						{"include": "#phpdoc-comment"}
 					]
 				}
 			}
@@ -118,7 +120,8 @@
 				"2": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#phpdoc-types"}
+						{"include": "#phpdoc-types"},
+						{"include": "#phpdoc-comment"}
 					]
 				}
 			}
@@ -130,7 +133,7 @@
 				"1": {"name": "keyword.other.phpdoc.php"}
 			},
 
-			"end": "(?i)(?>\\s(\\.{3})?(\\$[a-z_]\\w*)\\s)|(?>\\s(?=\\*\\/))",
+			"end": "(?i)(?>\\s(\\.{3})?(\\$[a-z_]\\w*)\\s)|(?>\\s(?=\\*\\/))|(?>\\s(?=\\*\\s@))",
 			"endCaptures": {
 				"1": {"name": "keyword.operator.variadic.php"},
 				"2": {"name": "variable.other.php"}
@@ -138,12 +141,29 @@
 
 			"name": "source.php",
 			"patterns": [
-				{"include": "#phpdoc-types"}
+				{"include": "#phpdoc-types"},
+				{"include": "#phpdoc-comment"}
 			]
+		},
+
+		"phpdoc-invalid": {
+			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>throws|return|var|param|property(?>-read|-write)?))(\\s+)(\\$[a-z_]\\w*)?\\s*$",
+			"captures": {
+				"1": {"name": "keyword.operator.variadic.php"},
+				"3": {"name": "variable.other.php"}
+			}
+		},
+
+		"phpdoc-comment": {
+			"match": "^(\\s\\*\\s)",
+			"captures": {
+				"1": {"name": "comment.block.documentation.phpdoc.php"}
+			}
 		},
 
 		"phpdoc": {
 			"patterns": [
+				{"include": "#phpdoc-invalid"},
 				{"include": "#phpdoc-templates"},
 				{"include": "#phpdoc-singular"},
 				{"include": "#phpdoc-properties"}
