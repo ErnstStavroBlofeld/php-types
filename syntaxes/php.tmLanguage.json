@@ -34,7 +34,7 @@
 		},
 
 		"php-primitive-types": {
-			"match": "(?i)\\b(self|int|string|bool|float|double|array|iterable|callable|resource|void|object|never)\\b",
+			"match": "(?i)\\b(self|int|string|bool|float|double|array|iterable|callable|pure-callable|resource|open-resource|closed-resource|void|object|never)\\b",
 			"name": "keyword.other.type.php"
 		},
 
@@ -92,7 +92,7 @@
 		},
 		
 		"phpdoc-templates": {
-			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?template)\\s+([^\\s*]+)(?>\\s+(of)\\s+((?><[^>]+>|\\([^)]+\\)(:\\s+)?|[^\\s*])+))?",
+			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?template(?:-covariant|-contravariant)?)\\s+([^\\s*]+)(?>\\s+(of)\\s+((?><[^>]+>|\\([^)]+\\)(:\\s+)?|[^\\s*])+))?",
 			"captures": {
 				"1": {"name": "keyword.other.phpdoc.php"},
 				"3": {"name": "keyword.other.phpdoc.php"},
@@ -114,7 +114,7 @@
 		},
 
 		"phpdoc-singular": {
-			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>implements|extends|throws|return))\\s+((?><[^>]+>|\\([^)]+\\)(:\\s+)?|[^\\s*])+)",
+			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>implements|extends|throws|return|mixin|require-extends|require-implements))\\s+((?><[^>]+>|\\([^)]+\\)(:\\s+)?|[^\\s*])+)",
 			"captures": {
 				"1": {"name": "keyword.other.phpdoc.php"},
 				"2": {
@@ -128,7 +128,7 @@
 		},
 
 		"phpdoc-properties": {
-			"begin": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>var|param|property(?>-read|-write)?))\\s+",
+			"begin": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>var|param|param-out|property(?>-read|-write)?))\\s+",
 			"beginCaptures": {
 				"1": {"name": "keyword.other.phpdoc.php"}
 			},
