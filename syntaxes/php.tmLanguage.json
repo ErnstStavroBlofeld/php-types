@@ -1,257 +1,456 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-
 	"injectionSelector": "L:comment.block.documentation.phpdoc.php",
 	"scopeName": "text.phpdoc",
 	"name": "phpdoc",
-
 	"patterns": [
-		{"include": "#phpdoc"}
+		{
+			"include": "#phpdoc"
+		}
 	],
-
 	"repository": {
 		"phpstan-types": {
 			"match": "(?i)\\b(non-empty-string|non-falsy-string|truthy-string|callable-string|numeric-string|literal-string|class-string|int-mask-of|int-mask|positive-int|non-zero-int|non-negative-int|non-positive-int|negative-int|array-key|key-of|value-of|non-empty-array|non-empty-list|never-return|never-returns|no-return|scalar|list|new|is|template-type)\\b",
 			"name": "keyword.other.type.php"
 		},
-
 		"phpstan-arrays": {
 			"match": "(?i)\\b(array|object)\\b{(.+)}",
 			"captures": {
-				"1": {"name": "keyword.other.type.php"},
+				"1": {
+					"name": "keyword.other.type.php"
+				},
 				"2": {
 					"patterns": [
 						{
 							"match": "(?i)(?>([a-z_]\\w*)\\??)\\s*:",
 							"captures": {
-								"1": {"name": "meta.other.php.array.key"}
+								"1": {
+									"name": "meta.other.php.array.key"
+								}
 							}
 						},
-						{"include": "#phpdoc-types"}
+						{
+							"include": "#phpdoc-types"
+						}
 					]
 				}
 			}
 		},
-
 		"php-primitive-types": {
 			"match": "(?i)\\b(self|static|int|string|bool|float|double|array|iterable|callable|pure-callable|pure-Closure|resource|open-resource|closed-resource|void|object|never)\\b",
 			"name": "keyword.other.type.php"
 		},
-
 		"php-class-types": {
 			"patterns": [
-				{"include": "source.php#namespace"},
-				{"include": "source.php#class-builtin"},
-				{"include": "source.php#class-name"}
+				{
+					"include": "source.php#namespace"
+				},
+				{
+					"include": "source.php#class-builtin"
+				},
+				{
+					"include": "source.php#class-name"
+				}
 			]
 		},
-
 		"php-types-aliases": {
 			"match": "(?i)\\b(boolean|integer|mixed)\\b",
 			"name": "keyword.other.type.php"
 		},
-
 		"php-constants-language": {
 			"match": "(?i)\\b(true|false|null)\\b",
 			"name": "constant.language.php"
 		},
-
 		"php-constants": {
 			"patterns": [
-				{"include": "source.php#numbers"},
-				{"include": "source.php#strings"}
+				{
+					"include": "source.php#numbers"
+				},
+				{
+					"include": "source.php#strings"
+				}
 			]
 		},
-
 		"php-variables": {
 			"patterns": [
-				{"include": "source.php#variables"}
+				{
+					"include": "source.php#variables"
+				}
 			]
 		},
-
 		"php-class-constants": {
 			"match": "(?i)\\b(::)\\b([a-z_]\\w*)",
 			"captures": {
-				"1": {"name": "keyword.operator.class.php"},
-				"2": {"name": "constant.other.class.php"}
+				"1": {
+					"name": "keyword.operator.class.php"
+				},
+				"2": {
+					"name": "constant.other.class.php"
+				}
 			}
 		},
-
 		"phpdoc-types": {
 			"patterns": [
-				{"include": "#phpstan-types"},
-				{"include": "#phpstan-arrays"},
-				{"include": "#php-constants-language"},
-				{"include": "#php-constants"},
-				{"include": "#php-primitive-types"},
-				{"include": "#php-types-aliases"},
-				{"include": "#php-class-types"},
-				{"include": "#php-variables"},
-				{"include": "#php-class-constants"}
+				{
+					"include": "#phpstan-types"
+				},
+				{
+					"include": "#phpstan-arrays"
+				},
+				{
+					"include": "#php-constants-language"
+				},
+				{
+					"include": "#php-constants"
+				},
+				{
+					"include": "#php-primitive-types"
+				},
+				{
+					"include": "#php-types-aliases"
+				},
+				{
+					"include": "#php-class-types"
+				},
+				{
+					"include": "#php-variables"
+				},
+				{
+					"include": "#php-class-constants"
+				}
 			]
 		},
-		
 		"phpdoc-templates": {
 			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?template(?:-covariant|-contravariant)?)\\s+([^\\s*]+)(?>\\s+(of)\\s+((?><[^>]+>|\\([^)]+\\)(:\\s+)?|[^\\s*])+))?",
 			"captures": {
-				"1": {"name": "keyword.other.phpdoc.php"},
-				"3": {"name": "keyword.other.phpdoc.php"},
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				},
+				"3": {
+					"name": "keyword.other.phpdoc.php"
+				},
 				"2": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#phpdoc-types"},
-						{"include": "#phpdoc-comment"}
+						{
+							"include": "#phpdoc-types"
+						},
+						{
+							"include": "#phpdoc-comment"
+						}
 					]
 				},
 				"4": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#phpdoc-types"},
-						{"include": "#phpdoc-comment"}
+						{
+							"include": "#phpdoc-types"
+						},
+						{
+							"include": "#phpdoc-comment"
+						}
 					]
 				}
 			}
 		},
-
 		"phpdoc-informational": {
 			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>deprecated|not-deprecated|impure|pure|immutable|readonly))",
 			"captures": {
-				"1": {"name": "keyword.other.phpdoc.php"}
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				}
 			}
 		},
-
 		"phpdoc-singular": {
 			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>implements|extends|throws|self-out|this-out|return|mixin|use|require-extends|require-implements))\\s+((?><[^>]+>|\\([^)]+\\)(:\\s+)?|[^\\s*])+)",
 			"captures": {
-				"1": {"name": "keyword.other.phpdoc.php"},
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				},
 				"2": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#phpdoc-types"},
-						{"include": "#phpdoc-comment"}
+						{
+							"include": "#phpdoc-types"
+						},
+						{
+							"include": "#phpdoc-comment"
+						}
 					]
 				}
 			}
 		},
-
 		"phpdoc-properties": {
 			"begin": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>var|param-closure-this|param-out|param|assert|property(?>-read|-write)?))\\s+",
 			"beginCaptures": {
-				"1": {"name": "keyword.other.phpdoc.php"}
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				}
 			},
-
 			"end": "(?i)(?>\\s(\\.{3})?(\\$[a-z_]\\w*)\\s)|(?>\\s(?=\\*\\/))|(?>\\s(?=\\*\\s@))",
 			"endCaptures": {
-				"1": {"name": "keyword.operator.variadic.php"},
-				"2": {"name": "variable.other.php"}
+				"1": {
+					"name": "keyword.operator.variadic.php"
+				},
+				"2": {
+					"name": "variable.other.php"
+				}
 			},
-
 			"name": "source.php",
 			"patterns": [
-				{"include": "#phpdoc-types"},
-				{"include": "#phpdoc-comment"}
+				{
+					"include": "#phpdoc-types"
+				},
+				{
+					"include": "#phpdoc-comment"
+				}
 			]
 		},
-
 		"phpdoc-callables": {
 			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>param-later-invoked-callable|param-immediately-invoked-callable)?)(\\s+)(\\$[a-z_]\\w*)?(.*)$",
 			"captures": {
-				"1": {"name": "keyword.other.phpdoc.php"},
-				"3": {"name": "variable.other.php"}
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				},
+				"3": {
+					"name": "variable.other.php"
+				}
 			}
 		},
-
 		"phpdoc-custom-types": {
 			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)type)\\s+([a-z_]\\w*\\s)((?>\\s*[\\<\\(\\{\\[\\,\\:]\\s*|\\s*[\\}\\)\\]\\>]|\\S)+)(?>.*)$",
 			"captures": {
-				"1": {"name": "keyword.other.phpdoc.php"},
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				},
 				"2": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#php-class-types"}
+						{
+							"include": "#php-class-types"
+						}
 					]
 				},
 				"3": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#phpdoc-types"}
+						{
+							"include": "#phpdoc-types"
+						}
 					]
 				}
 			}
 		},
-
 		"phpdoc-custom-types-import": {
 			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)import-type)\\s+([a-z_]\\w*)\\s+(from)\\s+((?:\\\\?[a-z_]\\w*)+)(\\s+(as)\\s+([a-z_]\\w*))?(.*)$",
 			"captures": {
-				"1": {"name": "keyword.other.phpdoc.php"},
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				},
 				"2": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#php-class-types"}
+						{
+							"include": "#php-class-types"
+						}
 					]
 				},
-				"3": {"name": "keyword.other.phpdoc.php"},
+				"3": {
+					"name": "keyword.other.phpdoc.php"
+				},
 				"4": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#php-class-types"}
+						{
+							"include": "#php-class-types"
+						}
 					]
 				},
-				"6": {"name": "keyword.other.phpdoc.php"},
+				"6": {
+					"name": "keyword.other.phpdoc.php"
+				},
 				"7": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#php-class-types"}
+						{
+							"include": "#php-class-types"
+						}
 					]
 				}
 			}
 		},
-
 		"phpdoc-assertions": {
 			"match": "(?i)(?<=\\s\\*\\s)(@phpstan-assert-if-(?>true|false))\\s+([^$\\s]+)\\s+(\\$(?>\\s*[\\,\\.\\:\\>]\\s*|\\S)+)(?>.*)$",
 			"captures": {
-				"1": {"name": "keyword.other.phpdoc.php"},
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				},
 				"2": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "#phpdoc-types"}
+						{
+							"include": "#phpdoc-types"
+						}
 					]
 				},
 				"3": {
 					"name": "source.php",
 					"patterns": [
-						{"include": "source.php"}
+						{
+							"include": "source.php"
+						}
 					]
 				}
 			}
 		},
-
+		"phpdoc-method": {
+			"match": "(?i)(?<=\\s\\*\\s)(@method)\\s+(static\\s+)?((?>[\\\\\\w]+|\\|)+)\\s+([a-zA-Z_]\\w*)(\\([^)]*\\))?",
+			"captures": {
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				},
+				"2": {
+					"name": "storage.modifier.php"
+				},
+				"3": {
+					"name": "source.php",
+					"patterns": [
+						{
+							"include": "#phpdoc-types"
+						}
+					]
+				},
+				"4": {
+					"name": "entity.name.function.php"
+				},
+				"5": {
+					"name": "source.php",
+					"patterns": [
+						{
+							"include": "#phpdoc-types"
+						},
+						{
+							"include": "#php-variables"
+						}
+					]
+				}
+			}
+		},
+		"phpdoc-see": {
+			"match": "(?i)(?<=\\s\\*\\s)(@see)\\s+((?:\\\\?[a-zA-Z_][\\w\\\\]*(?:::(?>[a-zA-Z_]\\w*(?:\\(\\))?))?))",
+			"captures": {
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				},
+				"2": {
+					"name": "source.php",
+					"patterns": [
+						{
+							"include": "#php-class-types"
+						},
+						{
+							"match": "(::)([a-zA-Z_]\\w*)(\\(\\))?",
+							"captures": {
+								"1": {
+									"name": "keyword.operator.class.php"
+								},
+								"2": {
+									"name": "entity.name.function.php"
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		"phpdoc-phpstan-ignore": {
+			"match": "(?i)(?<=\\s\\*\\s)(@phpstan-ignore)\\s+(.*?)(?=\\s*(?:\\(|$))(\\s*\\(.*\\))?",
+			"captures": {
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				},
+				"2": {
+					"name": "source.php",
+					"patterns": [
+						{
+							"match": "\\b([a-zA-Z0-9._]+)\\b",
+							"name": "variable.name"
+						}
+					]
+				},
+				"3": {
+					"name": "comment.line.double-slash.php"
+				}
+			}
+		},
+		"phpdoc-phpstan-ignore-line": {
+			"match": "(?i)(?<=\\s\\*\\s)(@phpstan-ignore-(?:next-)?line)",
+			"captures": {
+				"1": {
+					"name": "keyword.other.phpdoc.php"
+				}
+			}
+		},
 		"phpdoc-invalid": {
 			"match": "(?i)(?<=\\s\\*\\s)(@(?>phpstan-|phan-)?(?>throws|self-out|this-out|return|var|param|property(?>-read|-write)?))(\\s+)(\\$(?!this\\s+)[a-z_]\\w*)?\\s*$",
 			"captures": {
-				"1": {"name": "keyword.operator.variadic.php"},
-				"3": {"name": "variable.other.php"}
+				"1": {
+					"name": "keyword.operator.variadic.php"
+				},
+				"3": {
+					"name": "variable.other.php"
+				}
 			}
 		},
-
 		"phpdoc-comment": {
 			"match": "^(\\s\\*\\s)",
 			"captures": {
-				"1": {"name": "comment.block.documentation.phpdoc.php"}
+				"1": {
+					"name": "comment.block.documentation.phpdoc.php"
+				}
 			}
 		},
-
 		"phpdoc": {
 			"patterns": [
-				{"include": "#phpdoc-invalid"},
-				{"include": "#phpdoc-templates"},
-				{"include": "#phpdoc-informational"},
-				{"include": "#phpdoc-callables"},
-				{"include": "#phpdoc-singular"},
-				{"include": "#phpdoc-properties"},
-				{"include": "#phpdoc-custom-types"},
-				{"include": "#phpdoc-custom-types-import"},
-				{"include": "#phpdoc-assertions"}
+				{
+					"include": "#phpdoc-invalid"
+				},
+				{
+					"include": "#phpdoc-templates"
+				},
+				{
+					"include": "#phpdoc-informational"
+				},
+				{
+					"include": "#phpdoc-callables"
+				},
+				{
+					"include": "#phpdoc-singular"
+				},
+				{
+					"include": "#phpdoc-properties"
+				},
+				{
+					"include": "#phpdoc-custom-types"
+				},
+				{
+					"include": "#phpdoc-custom-types-import"
+				},
+				{
+					"include": "#phpdoc-assertions"
+				},
+				{
+					"include": "#phpdoc-method"
+				},
+				{
+					"include": "#phpdoc-see"
+				},
+				{
+					"include": "#phpdoc-phpstan-ignore-line"
+				},
+				{
+					"include": "#phpdoc-phpstan-ignore"
+				}
 			]
 		}
 	}
